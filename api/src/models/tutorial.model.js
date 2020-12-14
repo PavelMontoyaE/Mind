@@ -1,4 +1,6 @@
 export default (sequelize, Sequelize) => {
+
+  console.log(Sequelize.Datatypes);
   const Tutorial = sequelize.define("tutorial", {
     title: {
       type: Sequelize.STRING
@@ -10,6 +12,8 @@ export default (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN
     }
   });
+
+  console.log(Tutorial === sequelize.models.Tutorial);
 
   return Tutorial;
 };

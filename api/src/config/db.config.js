@@ -1,4 +1,4 @@
-export const HOST = "mysql";
+export const HOST = "172.18.0.1";
 export const USER = "admin";
 export const PASSWORD = "p4ssw0rd";
 export const DB = "db";

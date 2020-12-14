@@ -1,12 +1,13 @@
 import Sequelize from 'sequelize';
 import * as dbConfig from '../config/db.config.js';
 import Tutorials from './tutorial.model.js';
+import Role from './role.model.js';
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
-
+  dialect: 'mysql',
+  operatorsAliases: 0,
+  logging: console.log,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -20,6 +21,16 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = Tutorials(sequelize, Sequelize);
+// db.tutorials = Tutorials(sequelize, Sequelize);
+db.roles = Role.init(sequelize, Sequelize);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 export default db;
