@@ -1,35 +1,51 @@
 import Sequelize from 'sequelize';
 import * as dbConfig from '../config/db.config.js';
-import Tutorials from './tutorial.model.js';
 import Role from './role.model.js';
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
+  port: dbConfig.PORT,
   dialect: 'mysql',
-  operatorsAliases: 0,
   logging: console.log,
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
+  retry: {
+    match: [
+      /ETIMEDOUT/,
+      /EHOSTUNREACH/,
+      /ECONNRESET/,
+      /ECONNREFUSED/,
+      /ETIMEDOUT/,
+      /ESOCKETTIMEDOUT/,
+      /EHOSTUNREACH/,
+      /EPIPE/,
+      /EAI_AGAIN/,
+      /SequelizeConnectionError/,
+      /SequelizeConnectionRefusedError/,
+      /SequelizeHostNotFoundError/,
+      /SequelizeHostNotReachableError/,
+      /SequelizeInvalidConnectionError/,
+      /SequelizeConnectionTimedOutError/,
+    ],
+    max: 5,
   },
 });
 
-const db = {};
+const models = {
+  Role: Role.init(sequelize, Sequelize),
+};
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+const db = {
+  ...models,
+  sequelize,
+};
 
 // db.tutorials = Tutorials(sequelize, Sequelize);
-db.roles = Role.init(sequelize, Sequelize);
 
 sequelize
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 

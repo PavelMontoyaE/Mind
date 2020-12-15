@@ -1,11 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { createRequire } from 'module';
 import db from './src/models/index.js';
-import tutorialRoutes from './src/routes/tutorial.routes.js';
+import roleRoutes from './src/routes/role.routes.js'
 
-const require = createRequire(import.meta.url);
 const app = express();
 
 var corsOptions = {
@@ -27,7 +25,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to bezkoder application.' });
 });
 
-tutorialRoutes(app);
+roleRoutes(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -5,9 +5,10 @@ class Role extends Sequelize.Model {
     return super.init(
       {
         role_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
           primaryKey: true,
           autoincrement: true,
-          type: Sequelize.INTEGER,
         },
         name: {
           type: Sequelize.STRING,
@@ -17,4 +18,6 @@ class Role extends Sequelize.Model {
   }
 }
 
-export default Role;
+console.log(Role);
+
+export default new Role();
