@@ -3,6 +3,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import db from './src/models/index.js';
 import roleRoutes from './src/routes/role.routes.js'
+import userRoutes from './src/routes/user.routes.js';
+import courseRoutes from './src/routes/course.routes.js';
 
 const app = express();
 
@@ -25,7 +27,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to bezkoder application.' });
 });
 
+// TO DO: add in another file
 roleRoutes(app);
+userRoutes(app);
+courseRoutes(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

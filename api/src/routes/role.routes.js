@@ -10,9 +10,6 @@ export default app => {
   // Retrieve all Roles
   router.get("/", role.findAll);
 
-  // Retrieve all published Roles
-  router.get("/published", role.findAllPublished);
-
   // Retrieve a single Role with id
   router.get("/:id", role.findOne);
 

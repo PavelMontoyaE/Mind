@@ -1,23 +1,23 @@
+'use strict';
 import Sequelize from 'sequelize';
 
 class Role extends Sequelize.Model {
   static init(sequelize, Sequelize) {
     return super.init(
       {
-        role_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
+        id: {
           primaryKey: true,
           autoincrement: true,
+          type: Sequelize.INTEGER,
         },
         name: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-      }, {sequelize});
+      },
+      { sequelize }
+    );
   }
 }
 
-console.log(Role);
-
-export default new Role();
+export default Role;
