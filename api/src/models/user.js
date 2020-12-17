@@ -7,7 +7,7 @@ class User extends Sequelize.Model {
       {
         id: {
           primaryKey: true,
-          autoincrement: true,
+          autoIncrement: true,
           type: Datatypes.INTEGER,
         },
         firstname: {
@@ -33,6 +33,14 @@ class User extends Sequelize.Model {
         role: {
           type: Datatypes.INTEGER,
           allowNull: false,
+        },
+        createdAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updatedAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         },
       },
       { sequelize }

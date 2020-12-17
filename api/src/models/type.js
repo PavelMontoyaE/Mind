@@ -7,12 +7,20 @@ class Type extends Sequelize.Model {
       {
         id: {
           primaryKey: true,
-          autoincrement: true,
+          autoIncrement: true,
           type: Datatypes.INTEGER,
         },
         name: {
           type: Datatypes.STRING,
           allowNull: false,
+        },
+        createdAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updatedAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         },
       },
       { sequelize }

@@ -7,12 +7,20 @@ class Role extends Sequelize.Model {
       {
         id: {
           primaryKey: true,
-          autoincrement: true,
+          autoIncrement: true,
           type: Sequelize.INTEGER,
         },
         name: {
           type: Sequelize.STRING,
           allowNull: false,
+        },
+        createdAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updatedAt: {
+          type: "TIMESTAMP",
+          defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         },
       },
       { sequelize }
