@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import bcrypt from 'bcrypt';
 import db from '../models/index.js';
 import Course from '../models/course.js';
 import Role from '../models/role.js';
@@ -26,6 +27,8 @@ export const create = (req, res) => {
   // Create a User
   // TO DO: Create parser
   const user = req.body;
+  const saltRounds = 10; // TO DO: again, save environment var
+  user.password = bcrypt.hashSync(req.body.password, saltRounds);
   user.status = req.body.status ? req.body.status : false;
 
   // Save User in the database
