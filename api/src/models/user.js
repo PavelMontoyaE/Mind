@@ -48,15 +48,13 @@ class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    const { Course, Role } = models;
-    console.log(models);
-
+    const { Course, Role, CourseUser } = models;
     this.belongsTo(Role, {
       foreignKey: 'role',
     });
     this.belongsToMany(Course, {
       as: 'courses',
-      through: 'CourseUsers',
+      through: CourseUser,
       primaryKey: true,
     });
   }

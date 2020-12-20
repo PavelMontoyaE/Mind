@@ -1,8 +1,14 @@
 import express from 'express';
+import passport from 'passport';
 import * as user from '../controller/user.controller.js';
 
-export default app => {
+export default (app, logger) => {
   const router = express.Router();
+  const middleware = (req, res, next) => {
+    passport.authenticate('jwt', { session: false });
+    logger.info(`Running Route: ${req.baseUrl}`);
+    next();
+  };
 
   // Create a new User
   router.post("/", user.create);
@@ -22,5 +28,5 @@ export default app => {
   // Delete a User with id
   router.delete("/:id", user.delete_);
 
-  app.use('/api/user', router);
+  app.use('/api/user', middleware, router);
 };

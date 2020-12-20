@@ -31,7 +31,7 @@ module.exports = {
           firstname: 'Pavel',
           lastname: 'Montoya',
           email: 'pmontoya@arkusnexus.com', // arkus@123
-          password: '$2y$10$fWIiN3MdAlpKdiufshw30u.PXfqkIbhBZUtZAwecR0VTikPtaEZT6', // 10 rounds
+          password: '$2a$10$j1o6zGazJwsXGeqr0cf5dugAkleDKRK0MA0xTPfDdh3CiinjcOc/C', // 10 rounds
           status: true,
           role: 1,
         },
@@ -39,7 +39,7 @@ module.exports = {
           firstname: 'Albert',
           lastname: 'Camus',
           email: 'acamus@arkusnexus.com', // p4p1Camu$
-          password: '$2y$10$z0UOLAmw1IhrcTBsNGSB5uyV7rCArVd5Y3siXB9kwNOfB5B/ppxge',
+          password: '$2a$10$/HLkPCjdSfLVL90LE4cfQug./4jjn5L6qsNWjEPYrDiLOQsSvw.v6',
           status: true,
           role: 1,
         },
@@ -47,7 +47,7 @@ module.exports = {
           firstname: 'Johan',
           lastname: 'Goethe',
           email: 'jgoethe@arkusnexus.com', // faust0
-          password: '$2y$10$Z8RcmVdlJMUZUp7dyBkyGehRAwczk1iMJgLdA3WQGwY2cxDE8xE8O',
+          password: '$2a$10$jvtUsp7tC61tbjLrO9xXsu6kYjSA8/aCgMtYFV.oWhAmXadZS3yrK',
           status: true,
           role: 2,
         },
@@ -55,7 +55,7 @@ module.exports = {
           firstname: 'Leon',
           lastname: 'Tolstoi',
           email: 'ltolstoi@arkusnexus.com', // 14guerraYpaz
-          password: '$2y$10$p7pq8tCXLZaBrZaj4.mgLeovJtFzv49GyD24HLkhATtrG3JdwpXOy',
+          password: '$2a$10$oeXfTGCl2MDQBoV6AbhLu.Psg9lKlNNZ8hCUpGWdRwC7zNcMkREBK',
           status: true,
           role: 2,
         },
@@ -63,7 +63,7 @@ module.exports = {
           firstname: 'Edgar Allan',
           lastname: 'Poe',
           email: 'epoe@arkusnexus.com', // nunc4mas
-          password: '$2y$10$lyMdGa1tGeZaV0fi.gwhi.auiqWdijoG7ZwMAl.zGYb0TUm9LXGdW',
+          password: '$2a$10$T0jZfDXeaFD9J.zcrcFOIuWBeVUG90ff14KiTgtSVT.wka8x1Ma9K',
           status: true,
           role: 2,
         },
@@ -71,7 +71,7 @@ module.exports = {
           firstname: 'Gabriel',
           lastname: 'Garcia',
           email: 'epoe@arkusnexus.com', // g4b1t0
-          password: '$2y$10$wZP4btqI70uDTZGw31Pgt.zYXHtcgAq.JFnup2pTCAmK8x3LxO2BK',
+          password: '$2a$10$jwJR6x00mo3g6cO5YbHRf.BMHcB8ePelGKNJyQAxilDPI5qcerewG',
           status: true,
           role: 2,
         },
@@ -127,17 +127,17 @@ module.exports = {
     await queryInterface.bulkInsert(
       'CourseUsers',
       [
-        { userId: 1, courseId: 2 },
-        { userId: 2, courseId: 4 },
-        { userId: 2, courseId: 3 },
-        { userId: 3, courseId: 1 },
-        { userId: 3, courseId: 2 },
-        { userId: 5, courseId: 1 },
-        { userId: 5, courseId: 2 },
-        { userId: 5, courseId: 3 },
-        { userId: 5, courseId: 4 },
-        { userId: 6, courseId: 1 },
-        { userId: 6, courseId: 4 },
+        { userId: 1, courseId: 2, completed: false, },
+        { userId: 2, courseId: 4, completed: false, },
+        { userId: 2, courseId: 3, completed: false, },
+        { userId: 3, courseId: 1, completed: false, },
+        { userId: 3, courseId: 2, completed: true, },
+        { userId: 5, courseId: 1, completed: false, },
+        { userId: 5, courseId: 2, completed: false, },
+        { userId: 5, courseId: 3, completed: true, },
+        { userId: 5, courseId: 4, completed: false, },
+        { userId: 6, courseId: 1, completed: true, },
+        { userId: 6, courseId: 4, completed: true, },
       ],
       {}
     );

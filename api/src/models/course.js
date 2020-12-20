@@ -45,13 +45,13 @@ class Course extends Sequelize.Model {
   }
 
   static associate(models) {
-    const { User, Type} = models;
+    const { User, Type, CourseUser} = models;
 
     this.belongsTo(Type, { foreignKey: 'type' });
     this.belongsTo(User, { foreignKey: 'createdBy' });
     this.belongsToMany(User, {
       as: 'users',
-      through: 'CourseUsers',
+      through: CourseUser,
       primaryKey: true,
     });
   }
