@@ -4,11 +4,6 @@ import * as role from '../controller/role.controller.js';
 
 export default (app, logger) => {
   const router = express.Router();
-  const middleware = (req, res, next) => {
-    passport.authenticate('jwt', { session: false });
-    logger.info(`Running Route: ${req.baseUrl}`);
-    next();
-  };
 
   // Create a new Role
   router.post('/', role.create);
@@ -77,5 +72,5 @@ export default (app, logger) => {
   // Delete all Roles
   // router.delete("/", role.deleteAll);
 
-  app.use('/api/role', middleware, router);
+  app.use('/api/role', passport.authenticate('jwt', { session: false }), router);
 };

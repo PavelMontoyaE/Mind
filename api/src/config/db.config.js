@@ -1,4 +1,4 @@
-export const HOST = '172.19.0.1';
+export const HOST = '172.18.0.2';
 export const PORT = '3306';
 export const USER = 'admin';
 export const PASSWORD = 'p4ssw0rd';
