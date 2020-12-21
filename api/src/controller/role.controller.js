@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import db from '../models/index.js';
+import { logger } from '../libs/logger.js';
 
 const Role = db.Role;
 const Op = Sequelize.Op;
@@ -79,6 +80,7 @@ export const update = (req, res) => {
       }
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: 'Error updating Role with id=' + id,
       });
