@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import db from '../models/index.js';
+import { logger } from '../libs/logger.js';
 
 const Course = db.Course;
 const Op = Sequelize.Op;
@@ -23,6 +24,7 @@ export const create = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message:
           err.message || 'Some error occurred while creating the Course.',
@@ -40,6 +42,7 @@ export const findAll = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving courses.',
       });
@@ -55,6 +58,7 @@ export const findOne = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: 'Error retrieving Course with id=' + id,
       });
@@ -66,7 +70,7 @@ export const update = (req, res) => {
   const id = req.params.id;
 
   Course.update(req.body, {
-    where: { user_id: id },
+    where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -80,6 +84,7 @@ export const update = (req, res) => {
       }
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: 'Error updating Course with id=' + id,
       });
@@ -105,6 +110,7 @@ export const delete_ = (req, res) => {
       }
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: 'Could not delete Course with id=' + id,
       });
@@ -121,6 +127,7 @@ export const deleteAll = (req, res) => {
       res.send({ message: `${nums} Courses were deleted successfully!` });
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message:
           err.message || 'Some error occurred while removing all courses.',
@@ -135,6 +142,7 @@ export const findActive = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      logger.error(err);
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving courses.',
       });
