@@ -13,13 +13,62 @@ export default (app, logger) => {
   // Create a new Role
   router.post('/', role.create);
 
-  // Retrieve all Roles
+  /**
+   * @swagger
+   * /api/role:
+   *   get:
+   *     summary: Retrieve all roles
+   *     responses:
+   *       200:
+   *         description: All roles
+   */
   router.get('/', role.findAll);
 
-  // Retrieve a single Role with id
+  /**
+   * @swagger
+   * /api/role/{id}:
+   *   get:
+   *     summary: Retrieve a single role with id
+   *     responses:
+   *       200:
+   *         description: A single role
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: Numeric ID of the role to retrieve.
+   *         schema:
+   *           type: integer
+   */
   router.get('/:id', role.findOne);
 
-  // Update a Role with id
+  /**
+   * @swagger
+   * /api/role/{id}:
+   *   put:
+   *     summary: Updates a single role with id
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               name:
+   *                 type: string
+   *                 description: The role's name.
+   *                 example: Admin
+   *     responses:
+   *       200:
+   *         description: Updated a single role
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         description: Numeric ID of the role to retrieve.
+   *         schema:
+   *           type: integer
+   */
   router.put('/:id', role.update);
 
   // Delete a Role with id

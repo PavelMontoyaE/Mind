@@ -3,8 +3,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
+import swaggerUi from 'swagger-ui-express';
 
 import { logger, expressLogger } from './src/libs/logger.js';
+import swaggerSpecs from './src/config/swagger.config.js';
 import db from './src/models/index.js';
 import sessionRoutes from './src/routes/session.routes.js';
 import roleRoutes from './src/routes/role.routes.js';
@@ -15,6 +17,13 @@ const app = express();
 
 // Logger
 app.use(expressLogger);
+
+// Swagger
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, { explorer: true })
+);
 
 // Cors
 var corsOptions = {
@@ -52,9 +61,9 @@ let strategy = new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
 });
 
 app.use(function (err, req, res, next) {
-  logger.error(err.stack)
-  res.status(500).send('Something broke!')
-})
+  logger.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 passport.use(strategy);
 app.use(passport.initialize());
