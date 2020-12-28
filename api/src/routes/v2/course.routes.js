@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import * as course from '../controller/course.controller.js';
+import * as course from '../../controller/course.controller.js';
 
-export default (app, logger) => {
+export default (app) => {
   const router = express.Router();
 
   // Create a new Course
@@ -20,8 +20,5 @@ export default (app, logger) => {
   // Delete a Course with id
   router.delete("/:id", passport.authenticate('jwt', { session: false }), course.delete_);
 
-  // Delete all Courses
-  // router.delete("/", course.deleteAll);
-
-  app.use('/api/course', router);
+  app.use('/api/v2/courses', router);
 };

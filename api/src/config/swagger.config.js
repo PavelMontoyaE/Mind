@@ -13,14 +13,28 @@ const options = {
         email: 'pmontoya@arkusnexus.com',
       },
     },
-    host: 'localhost:3030',
-    basePath: '/api',
     servers: [
       {
-        url: 'http://localhost:3030',
-        description: 'Development server'
+        url: 'http://localhost:3030/api/v1',
+        description: 'Development server v1',
+      },
+      {
+        url: 'http://localhost:3030/api/v2',
+        description: 'Development server v2',
       },
     ],
+    paths: {
+      '/user': {
+        get: {
+          summary: 'Retrieve all user',
+          responses: {
+            200: {
+              description: 'All user',
+            },
+          },
+        },
+      },
+    },
   },
   apis: ['./src/routes/*.routes.js'],
 };

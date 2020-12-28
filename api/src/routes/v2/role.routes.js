@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import * as role from '../controller/role.controller.js';
+import * as role from '../../controller/role.controller.js';
 
-export default (app, logger) => {
+export default (app) => {
   const router = express.Router();
 
   // Create a new Role
@@ -72,5 +72,5 @@ export default (app, logger) => {
   // Delete all Roles
   // router.delete("/", role.deleteAll);
 
-  app.use('/api/role', passport.authenticate('jwt', { session: false }), router);
+  app.use('/api/v2/roles', passport.authenticate('jwt', { session: false }), router);
 };

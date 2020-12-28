@@ -36,8 +36,15 @@ export const create = (req, res) => {
 export const findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  const attributes = { attributes: ['id', 'firstname', 'lastname'] };
 
-  Course.findAll({ where: condition })
+  Course.findAll({
+    where: condition,
+    include: [
+      { model: db.User, ...attributes},
+      { model: db.User, as: 'users', ...attributes },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -53,7 +60,7 @@ export const findAll = (req, res) => {
 export const findOne = (req, res) => {
   const id = req.params.id;
 
-  User.findByPk(id)
+  Course.findByPk(id)
     .then((data) => {
       res.send(data);
     })
