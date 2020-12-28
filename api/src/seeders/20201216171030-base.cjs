@@ -111,7 +111,7 @@ module.exports = {
         duration: 5,
         type: 2,
         createdBy: 2,
-        status: true,
+        status: false,
       },
       {
         name: 'DIY',

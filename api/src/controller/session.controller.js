@@ -13,6 +13,7 @@ export const login = async (req, res) => {
   }
 
   // we get the user with the name and save the resolved promise returned
+  // TO DO: get Active User
   const user = await getUser(email);
 
   if (!user || !user.dataValues) {
@@ -28,11 +29,15 @@ export const login = async (req, res) => {
     jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); // TO DO: add ona config file.
     jwtOptions.secretOrKey = 'arkusmind';
     const token = jwt.sign(payload, jwtOptions.secretOrKey);
-    return res.send({ msg: 'ok', token: token });
+    const userData = {
+      email,
+      id: userId,
+    };
+    return res.send({ user: userData, token: token });
   }
 
-  res.status(500).send({
-    message: 'Invalid Credentials',
+  res.status(401).send({
+    msg: 'Invalid Credentials',
   });
 };
 

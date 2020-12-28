@@ -8,10 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import { logger, expressLogger } from './src/libs/logger.js';
 import swaggerSpecs from './src/config/swagger.config.js';
 import db from './src/models/index.js';
-import sessionRoutes from './src/routes/session.routes.js';
-import roleRoutes from './src/routes/role.routes.js';
-import userRoutes from './src/routes/user.routes.js';
-import courseRoutes from './src/routes/course.routes.js';
+import routesV2 from './src/routes/v2/index.js'
 
 const app = express();
 
@@ -75,10 +72,7 @@ app.get('/', (req, res) => {
 });
 
 // TO DO: add in another file
-roleRoutes(app, logger);
-userRoutes(app, logger);
-courseRoutes(app, logger);
-sessionRoutes(app, logger);
+routesV2(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

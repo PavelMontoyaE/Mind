@@ -4,7 +4,7 @@ import Role from './role.js';
 import User from './User.js';
 import Type from './type.js';
 import Course from './course.js';
-import CourseUser from './CourseUser.js';
+import CourseUser from './course-user.js';
 import { logger } from '../libs/logger.js';
 
 const DataTypes = Sequelize.DataTypes;

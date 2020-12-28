@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import * as user from '../controller/user.controller.js';
+import * as user from '../../controller/user.controller.js';
 
-export default (app, logger) => {
+export default (app) => {
   const router = express.Router();
 
   // Create a new User
@@ -23,5 +23,5 @@ export default (app, logger) => {
   // Delete a User with id
   router.delete("/:id", user.delete_);
 
-  app.use('/api/user', passport.authenticate('jwt', { session: false }), router);
+  app.use('/api/v2/users', passport.authenticate('jwt', { session: false }), router);
 };
