@@ -13,6 +13,15 @@ const courseService = {
     );
     return response.data;
   },
+  async update(course) {
+    console.log(authHeader());
+    const response = await axios.put(
+      `http://localhost:3030/api/v2/courses/${course.id}`,
+      course,
+      authHeader()
+    );
+    return response.data;
+  },
 };
 
 export default courseService;

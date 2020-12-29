@@ -6,8 +6,9 @@ import passportJWT from 'passport-jwt';
 import swaggerUi from 'swagger-ui-express';
 
 import { logger, expressLogger } from './src/libs/logger.js';
-import swaggerSpecs from './src/config/swagger.config.js';
+import swaggerOptions from './src/config/swagger.config.js';
 import db from './src/models/index.js';
+import routes from './src/routes/v1/index.js';
 import routesV2 from './src/routes/v2/index.js'
 
 const app = express();
@@ -15,11 +16,13 @@ const app = express();
 // Logger
 app.use(expressLogger);
 
+app.use(express.static('src/public'));
+
 // Swagger
 app.use(
   '/api-docs',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpecs, { explorer: true })
+  swaggerUi.setup(null, swaggerOptions)
 );
 
 // Cors
@@ -71,7 +74,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Courses application.' });
 });
 
-// TO DO: add in another file
+routes(app);
 routesV2(app);
 
 const PORT = process.env.PORT || 8080;

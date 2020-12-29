@@ -20,7 +20,7 @@
         {{ item.users | countUsers }}
       </template>
     </v-data-table>
-    <v-navigation-drawer v-model="drawer" absolute dark width=400>
+    <v-navigation-drawer v-model="drawer" absolute dark width="400">
       <course :model="course" @on-close="closeDrawer"></course>
     </v-navigation-drawer>
   </v-container>
@@ -60,9 +60,6 @@ export default {
       courses: (state) => state.courses.courses,
     }),
   },
-  mounted() {
-    this.getCourses();
-  },
   methods: {
     ...mapActions('courses', ['getCourses']),
     setCourse(course) {
@@ -75,6 +72,9 @@ export default {
     closeDrawer() {
       this.drawer = false;
     },
+  },
+  mounted() {
+    this.getCourses();
   },
 };
 </script>
