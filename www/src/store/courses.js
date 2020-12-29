@@ -5,6 +5,7 @@ export default {
   state: {
     courses: [],
     course: {},
+    loading: false,
   },
   actions: {
     async getCourses({ commit }) {
@@ -15,6 +16,14 @@ export default {
       const course = await courseService.findOne(id);
       commit('setCourse', course);
     },
+    async updateCourse({ commit }, payload) {
+      commit('setLoading', true);
+      const update = await courseService.update(payload);
+      if (update) {
+        commit('setLoading', false);
+        console.log(update);
+      }
+    },
     cleanStates({ commit }) {
       commit('cleanStates');
     },
@@ -23,8 +32,11 @@ export default {
     setCourses(state, courses) {
       state.courses = courses;
     },
-    serCourse(state, course) {
+    setCourse(state, course) {
       state.course = course;
+    },
+    setLoading(state, value) {
+      state.loading = value;
     },
     cleanStates(state) {
       state.course = {};

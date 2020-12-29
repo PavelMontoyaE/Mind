@@ -1,0 +1,123 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mind Courses API",
+    "version": "1.0.0",
+    "description": "This is an API for Courses for mind",
+    "contact": {
+      "name": "Pavel M",
+      "url": "https://www.arkusnexus.com/",
+      "email": "pmontoya@arkusnexus.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3030/api/v1",
+      "description": "Development server v1"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "summary": "Retrieve all courses",
+        "responses": {
+          "200": {
+            "description": "Array of courses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Course"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "summary": "Retrieve a course with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Course"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Course": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "example": "https://www.youtube.com/watch?v=BhvLIzVL8_o"
+        },
+        "description": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "access_token"
+      }
+    }
+  },
+  "responses": {
+    "UnauthorizedError": {
+      "description": "Error: Unauthorized"
+    }
+  }
+}

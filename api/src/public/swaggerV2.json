@@ -1,0 +1,790 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mind Courses API V2",
+    "version": "1.0.0",
+    "description": "This is an API for Courses for mind",
+    "contact": {
+      "name": "Pavel M",
+      "url": "https://www.arkusnexus.com/",
+      "email": "pmontoya@arkusnexus.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3030/api/v2",
+      "description": "Development server v2"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Retrieve all courses",
+        "responses": {
+          "200": {
+            "description": "Array of courses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Course"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Creates a course",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Course object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseBody"
+            }
+          }
+        ]
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Retrieve a course with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Course"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Updates a course with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated course object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CourseBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UpdatedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Deletes a course with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeletedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieve all users",
+        "responses": {
+          "200": {
+            "description": "Array of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Creates an user",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserBody"
+            }
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieve an user with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Updates an user with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UpdatedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes an user with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeletedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/roles": {
+      "get": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Retrieve all types",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Creates a type",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Type object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TypeBody"
+            }
+          }
+        ]
+      }
+    },
+    "/roles/{id}": {
+      "get": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Retrieve a type with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Type"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Updates a type with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated type object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TypeBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UpdatedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Deletes a type with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeletedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/types": {
+      "get": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Retrieve all types",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Types"
+        ],
+        "summary": "Creates a type",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Type object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TypeBody"
+            }
+          }
+        ]
+      }
+    },
+    "/types/{id}": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Retrieve a role with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Role"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Updates a role with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated role object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UpdatedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Deletes a role with an Id",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeletedResponse200"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Course": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "example": "https://www.youtube.com/watch?v=BhvLIzVL8_o"
+        },
+        "description": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "CourseBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "example": "https://www.youtube.com/watch?v=BhvLIzVL8_o"
+        },
+        "description": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "pavel@arkus.com"
+        },
+        "password": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "UserBody": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "pavel@arkus.com"
+        },
+        "password": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "RoleBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "TypeBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "access_token"
+      }
+    }
+  },
+  "responses": {
+    "UnauthorizedError": {
+      "description": "Error: Unauthorized"
+    },
+    "UpdatedResponse200": {
+      "description": "Message of updated"
+    },
+    "DeletedResponse200": {
+      "description": "Message of deleted"
+    }
+  }
+}
