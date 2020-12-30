@@ -28,7 +28,6 @@ export default {
             const { msg } = response.data;
             commit('setLoginError', msg);
           } else if (err) {
-            console.log(err);
             commit('setLoginError', 'Oops! something happened');
           }
         });

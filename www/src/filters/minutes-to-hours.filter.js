@@ -3,7 +3,7 @@ export default duration => {
     return duration;
   }
 
-  const hours = Math.round(duration / 60);
+  const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
 
   let hoursFormat = hours.toString().padStart(2, '0');
