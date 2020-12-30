@@ -35,7 +35,7 @@
       dense
       outlined
       type="error"
-      dismissable="true"
+      dismissible
       class="mt-5"
       v-if="loginError"
     >
