@@ -26,8 +26,8 @@ export const login = async (req, res) => {
     const payload = { id: userId };
     const jwtOptions = {};
 
-    jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); // TO DO: add ona config file.
-    jwtOptions.secretOrKey = 'arkusmind';
+    jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+    jwtOptions.secretOrKey = process.env.API_SECRET;
     const token = jwt.sign(payload, jwtOptions.secretOrKey);
     const userData = {
       email,

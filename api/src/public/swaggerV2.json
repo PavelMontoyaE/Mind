@@ -167,6 +167,11 @@
           "Users"
         ],
         "summary": "Retrieve all users",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of users",
@@ -308,7 +313,7 @@
     "/roles": {
       "get": {
         "tags": [
-          "Types"
+          "Roles"
         ],
         "summary": "Retrieve all types",
         "security": [
@@ -334,7 +339,7 @@
       },
       "post": {
         "tags": [
-          "Types"
+          "Roles"
         ],
         "summary": "Creates a type",
         "security": [
@@ -358,7 +363,7 @@
     "/roles/{id}": {
       "get": {
         "tags": [
-          "Types"
+          "Roles"
         ],
         "summary": "Retrieve a type with an Id",
         "security": [
@@ -392,7 +397,7 @@
       },
       "put": {
         "tags": [
-          "Types"
+          "Roles"
         ],
         "summary": "Updates a type with an Id",
         "security": [
@@ -428,7 +433,7 @@
       },
       "delete": {
         "tags": [
-          "Types"
+          "Roles"
         ],
         "summary": "Deletes a type with an Id",
         "security": [
@@ -507,7 +512,7 @@
     "/types/{id}": {
       "get": {
         "tags": [
-          "Roles"
+          "Types"
         ],
         "summary": "Retrieve a role with an Id",
         "security": [
@@ -541,7 +546,7 @@
       },
       "put": {
         "tags": [
-          "Roles"
+          "Types"
         ],
         "summary": "Updates a role with an Id",
         "security": [
@@ -577,7 +582,7 @@
       },
       "delete": {
         "tags": [
-          "Roles"
+          "Types"
         ],
         "summary": "Deletes a role with an Id",
         "security": [
