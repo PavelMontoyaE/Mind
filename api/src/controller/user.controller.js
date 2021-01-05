@@ -27,7 +27,7 @@ export const create = (req, res) => {
   // Create a User
   // TO DO: Create parser
   const user = req.body;
-  const saltRounds = 10; // TO DO: again, save environment var
+  const saltRounds = process.env.SALT_ROUNDS;
   user.password = bcrypt.hashSync(req.body.password, saltRounds);
   user.status = req.body.status ? req.body.status : false;
 

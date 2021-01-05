@@ -4,13 +4,15 @@ import bodyParser from 'body-parser';
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
 import swaggerUi from 'swagger-ui-express';
+import dotenv from 'dotenv';
 
 import { logger, expressLogger } from './src/libs/logger.js';
 import swaggerOptions from './src/config/swagger.config.js';
 import db from './src/models/index.js';
 import routes from './src/routes/v1/index.js';
-import routesV2 from './src/routes/v2/index.js'
+import routesV2 from './src/routes/v2/index.js';
 
+dotenv.config();
 const app = express();
 
 // Logger
@@ -19,11 +21,7 @@ app.use(expressLogger);
 app.use(express.static('src/public'));
 
 // Swagger
-app.use(
-  '/api-docs',
-  swaggerUi.serve,
-  swaggerUi.setup(null, swaggerOptions)
-);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, swaggerOptions));
 
 // Cors
 var corsOptions = {
@@ -46,7 +44,7 @@ const JwtStrategy = passportJWT.Strategy;
 const jwtOptions = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = 'arkusmind'; // TO DO: Add to env var
+jwtOptions.secretOrKey = process.env.API_SECRET;
 
 let strategy = new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
   logger.debug('Calling findByPk');
@@ -77,7 +75,14 @@ app.get('/', (req, res) => {
 routes(app);
 routesV2(app);
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  logger.info(`Server is running on port ${PORT}.`);
+let port;
+if (process.env.NODE_ENV === 'testing') {
+  port = process.env.TEST_PORT;
+} else {
+  port = process.env.PORT;
+}
+export default app.listen(port, () => {
+  logger.info(`Server is running on port ${port}.`);
 });
+
+export const { sequelize } = db;
