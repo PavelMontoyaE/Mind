@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import db from '../models/index.js';
 import Course from '../models/course.js';
 import Role from '../models/role.js';
+import CourseUser from '../models/course-user.js';
 
 const User = db.User;
 const Op = Sequelize.Op;
@@ -79,10 +80,13 @@ export const findOneWithCourses = (req, res) => {
   const id = req.params.id;
 
   User.findByPk(id, {
-    include: [{
-      model: Course,
-      as: 'courses',
-    }, Role]
+    include: [
+      {
+        model: Course,
+        as: 'courses',
+      },
+      Role,
+    ],
   })
     .then((data) => {
       res.send(data);
@@ -90,7 +94,7 @@ export const findOneWithCourses = (req, res) => {
     .catch((err) => {
       console.log('[findOneWithCourses] error: ', err);
       res.status(500).send({
-        message: 'Error retrieving User with id=' + id,
+        message: 'Error retrieving User with id = ' + id,
       });
     });
 };
@@ -115,7 +119,7 @@ export const update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: 'Error updating User with id=' + id,
+        message: 'Error updating User with id = ' + id,
       });
     });
 };

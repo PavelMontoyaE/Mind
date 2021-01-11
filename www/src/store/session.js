@@ -8,6 +8,11 @@ export default {
     userSession: {},
     loginError: '',
   },
+  getters: {
+    isAdmin(state) {
+      return state.userSession.role && state.userSession.role === 'admin';
+    },
+  },
   actions: {
     getSession({ commit }) {
       const session = sessionService.getSession();

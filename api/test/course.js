@@ -1,17 +1,15 @@
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
+import sinon from 'sinon';
 import server, { sequelize } from '../server.js';
 import seeding from '../src/seeders/index.js';
+import * as courseController from '../src/controller/course.controller.js';
 
 chai.should();
 chai.use(chaiHTTP);
+const expect = chai.expect;
 
-describe('Course API', function () {
-  before(function (done) {
-    this.timeout(10000); // A very long environment setup.
-    setTimeout(done, 2500);
-  });
-
+describe('Courses', function () {
   after(function (done) {
     server.close();
     done();
@@ -19,9 +17,6 @@ describe('Course API', function () {
 
   describe('Test route api/v2/session', function () {
     it('It should return 200 and the token', function (done) {
-      const queryInterface = sequelize.getQueryInterface();
-      seeding.up(queryInterface, sequelize);
-
       chai
         .request(server)
         .post('/api/v2/session')
@@ -72,6 +67,18 @@ describe('Course API', function () {
             done();
           });
       });
+    });
+  });
+
+  describe('Course controller', function () {
+    it('it should return an array', function () {
+      let req = { query: {} };
+      let res = {
+        send: (data) => {
+          data.should.be.a('array');
+        }
+      };
+      courseController.findAll(req, res);
     });
   });
 });

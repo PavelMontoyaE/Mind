@@ -6,9 +6,9 @@
 
       <v-spacer></v-spacer>
 
-      <template v-if="userSession.email">
+      <template v-if="userSession.name">
         <a to="/profile">
-          <span class="mr-2 white--text">{{ userSession.email }}</span>
+          <span class="mr-2 white--text">{{ userSession.name }}</span>
           <v-icon>mdi-account</v-icon>
         </a>
         <v-btn @click="logout" class="ml-2">
@@ -43,7 +43,7 @@
             </v-list-item-title>
           </v-list-item>
 
-          <v-list-item to="/users">
+          <v-list-item to="/users" v-if="isAdmin">
             <v-list-item-title>
               <v-icon>mdi-account-multiple</v-icon> Users
             </v-list-item-title>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'App',
@@ -68,6 +68,9 @@ export default {
   computed: {
     ...mapState({
       userSession: (state) => state.session.userSession,
+    }),
+    ...mapGetters('session', {
+      isAdmin: 'isAdmin',
     }),
     path() {
       return this.$route.path;

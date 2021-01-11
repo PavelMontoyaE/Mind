@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
-import Courses from '@/components/Courses';
+import Courses from '@/components/Courses/index';
 
 Vue.use(VueRouter);
 

@@ -1,6 +1,7 @@
 import session from './session';
 import courses from './courses';
 import types from './types';
+import users from './users';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     session,
     courses,
     types,
+    users,
   },
   state: {},
   mutations: {},

@@ -20,18 +20,19 @@ export const login = async (req, res) => {
     return res.status(401).json({ msg: 'No such user was found', user });
   }
 
-  const { id: userId, password: userPassword } = user.dataValues;
-
-  if (bcrypt.compareSync(password, userPassword)) {
-    const payload = { id: userId };
+  if (bcrypt.compareSync(password, user.password)) {
+    const payload = { id: user.id };
     const jwtOptions = {};
 
     jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
     jwtOptions.secretOrKey = process.env.API_SECRET;
     const token = jwt.sign(payload, jwtOptions.secretOrKey);
+
     const userData = {
       email,
-      id: userId,
+      id: user.id,
+      name: `${user.firstname} ${user.lastname}`,
+      role: user.Role.name,
     };
     return res.send({ user: userData, token: token });
   }
@@ -43,7 +44,11 @@ export const login = async (req, res) => {
 
 const getUser = async (email) => {
   var condition = { email: email };
-  const user = await User.findAll({ where: condition })
+  const attributes = { attributes: ['id', 'name'] };
+  const user = await User.findAll({
+    where: condition,
+    include: [{ model: db.Role, ...attributes }],
+  })
     .then((data) => {
       return data[0];
     })

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-form>
       <v-text-field v-model="course.name" label="Name"></v-text-field>
       <v-text-field v-model="course.url" label="URL"></v-text-field>
@@ -17,7 +17,7 @@
       ></v-select>
       <v-checkbox v-model="course.status" label="Status"></v-checkbox>
 
-      <template v-if="newCourse">
+      <template v-if="drawerType === 'new'">
         <v-btn
           color="primary"
           class="pull-right"
@@ -69,7 +69,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -78,7 +78,6 @@ import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
   props: {
     model: Object,
-    newCourse: Boolean,
   },
   data() {
     return {
@@ -90,6 +89,7 @@ export default {
     ...mapState({
       loading: (state) => state.session.loading,
       types: (state) => state.types.types,
+      drawerType: (state) => state.types.drawerType,
     }),
   },
   methods: {
@@ -106,7 +106,6 @@ export default {
         type: value.type,
         status: value.status,
       };
-      console.log('vt', value.type);
     },
   },
   watch: {
