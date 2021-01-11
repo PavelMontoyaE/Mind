@@ -127,17 +127,17 @@ module.exports = {
     await queryInterface.bulkInsert(
       'CourseUsers',
       [
-        { userId: 1, courseId: 2, completed: false, },
-        { userId: 2, courseId: 4, completed: false, },
-        { userId: 2, courseId: 3, completed: false, },
-        { userId: 3, courseId: 1, completed: false, },
-        { userId: 3, courseId: 2, completed: true, },
-        { userId: 5, courseId: 1, completed: false, },
-        { userId: 5, courseId: 2, completed: false, },
-        { userId: 5, courseId: 3, completed: true, },
-        { userId: 5, courseId: 4, completed: false, },
-        { userId: 6, courseId: 1, completed: true, },
-        { userId: 6, courseId: 4, completed: true, },
+        { userId: 1, courseId: 2, completed: 0, },
+        { userId: 2, courseId: 4, completed: 0, },
+        { userId: 2, courseId: 3, completed: 0, },
+        { userId: 3, courseId: 1, completed: 60, },
+        { userId: 3, courseId: 2, completed: 10, },
+        { userId: 5, courseId: 1, completed: 15, },
+        { userId: 5, courseId: 2, completed: 30, },
+        { userId: 5, courseId: 3, completed: 5, },
+        { userId: 5, courseId: 4, completed: 60, },
+        { userId: 6, courseId: 1, completed: 40, },
+        { userId: 6, courseId: 4, completed: 25, },
       ],
       {}
     );

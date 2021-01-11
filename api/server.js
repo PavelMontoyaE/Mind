@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Secuelize
-db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false });
 
 // JWT
 const ExtractJwt = passportJWT.ExtractJwt;

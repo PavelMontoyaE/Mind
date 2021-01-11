@@ -7,6 +7,7 @@ export default {
     course: {},
     loading: false,
     courseDrawer: false,
+    drawerType: '',
     successMessage: '',
     errorMessage: '',
   },
@@ -38,6 +39,28 @@ export default {
         commit('setCourseDrawer', false);
       }
     },
+    async assignUser({ commit, dispatch, state }, payload) {
+      commit('setLoading', true);
+      const response = await courseService.assignUser(state.course.id, payload);
+      dispatch('manageResponse', response);
+    },
+    async unassignUser({ commit, dispatch, state }, userId) {
+      commit('setLoading', true);
+      const response = await courseService.unassignUser(
+        state.course.id,
+        userId
+      );
+      dispatch('manageResponse', response);
+    },
+    async updateCourseUser({ commit, dispatch, state }, { userId, payload }) {
+      commit('setLoading', true);
+      const response = await courseService.updateCourseUser(
+        state.course.id,
+        userId,
+        payload
+      );
+      dispatch('manageResponse', response);
+    },
     async manageResponse({ commit, dispatch }, response) {
       if (response.message) {
         await dispatch('getCourses');
@@ -66,6 +89,9 @@ export default {
     setCourseDrawer(state, value) {
       state.courseDrawer = value;
     },
+    setDrawerType(state, value) {
+      state.drawerType = value;
+    },
     setSuccessMessage(state, value) {
       state.successMessage = value;
     },
@@ -76,8 +102,6 @@ export default {
       state.course = {};
       state.loading = false;
       state.courseDrawer = false;
-      state.successMessage = '';
-      state.errorMessage = '';
     },
   },
 };

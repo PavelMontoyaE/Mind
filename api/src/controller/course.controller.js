@@ -3,6 +3,8 @@ import db from '../models/index.js';
 import { logger } from '../libs/logger.js';
 
 const Course = db.Course;
+const User = db.User;
+const CourseUser = db.CourseUser;
 const Op = Sequelize.Op;
 
 // Create and Save a new Course
@@ -41,7 +43,7 @@ export const findAll = (req, res) => {
   Course.findAll({
     where: condition,
     include: [
-      { model: db.User, ...attributes},
+      { model: db.User, ...attributes },
       { model: db.User, as: 'users', ...attributes },
     ],
   })
@@ -152,6 +154,118 @@ export const findActive = (req, res) => {
       logger.error(err);
       res.status(500).send({
         message: err.message || 'Some error occurred while retrieving courses.',
+      });
+    });
+};
+
+// Create and Save a new Course
+export const addUser = async (req, res) => {
+  const id = req.params.id;
+  if (!req.body.user_id) {
+    res.status(400).send({
+      message: 'Missing fields',
+    });
+    return;
+  }
+
+  const { body } = req;
+
+  const course = await Course.findByPk(id);
+  if (course.err) {
+    res.status(500).send({
+      message: 'Course Id error',
+    });
+    return;
+  }
+
+  const user = await User.findByPk(body.user_id);
+  if (user.err) {
+    res.status(500).send({
+      message: 'Course Id error',
+    });
+    return;
+  }
+
+  // Save Course in the database
+  const response = course.addUser(user, { through: { completed: 0 } });
+
+  if (response.err) {
+    logger.error(err);
+    res.status(500).send({
+      message: err.message || 'Some error occurred while assigning the User.',
+    });
+    return;
+  }
+  res.send({ message: 'Succesfully assigned' });
+};
+
+export const deleteUser = async (req, res) => {
+  const { id, userid: userId } = req.params;
+  console.log('req params', req.params);
+  if (!id || !userId) {
+    res.status(400).send({
+      message: 'Missing fields',
+    });
+    return;
+  }
+
+  const course = await Course.findByPk(id);
+  if (course.err) {
+    res.status(500).send({
+      message: 'Course Id error',
+    });
+    return;
+  }
+
+  const user = await User.findByPk(userId);
+  if (user.err) {
+    res.status(500).send({
+      message: 'Course Id error',
+    });
+    return;
+  }
+
+  // Save Course in the database
+  const response = course.removeUser(user);
+
+  if (response.err) {
+    logger.error(err);
+    res.status(500).send({
+      message: err.message || 'Some error occurred while assigning the User.',
+    });
+    return;
+  }
+  res.send({ message: 'Succesfully unassigned' });
+};
+
+export const updateCourseUser = async (req, res) => {
+  const { id, userid: userId } = req.params;
+  const { body } = req;
+
+  if (!id || !userId || !body) {
+    res.status(400).send({
+      message: 'Missing fields',
+    });
+  }
+
+  CourseUser.update(body, {
+    where: { userId, courseId: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: 'Course completed time was updated successfully.',
+        });
+      } else {
+        res.send({
+          message: `Cannot update Course with id = ${id}. Maybe Course was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      logger.error(err);
+      res.status(500).send({
+        message: 'Error updating Course with id=' + id,
       });
     });
 };

@@ -20,5 +20,11 @@ export default (app) => {
   // Delete a Course with id
   router.delete("/:id", passport.authenticate('jwt', { session: false }), course.delete_);
 
+  router.post("/:id/user", passport.authenticate('jwt', { session: false }), course.addUser);
+
+  router.delete("/:id/user/:userid", passport.authenticate('jwt', { session: false }), course.deleteUser);
+
+  router.put("/:id/user/:userid", passport.authenticate('jwt', { session: false }), course.updateCourseUser);
+
   app.use('/api/v2/courses', router);
 };

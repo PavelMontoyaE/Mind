@@ -6,15 +6,16 @@ class CourseUser extends Sequelize.Model {
     return super.init(
       {
         completed: {
-          type: Datatypes.BOOLEAN,
+          type: Datatypes.INTEGER,
+          defaultValue: 0,
           allowNull: false,
         },
         createdAt: {
-          type: "TIMESTAMP",
+          type: 'TIMESTAMP',
           defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: {
-          type: "TIMESTAMP",
+          type: 'TIMESTAMP',
           defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         },
       },
