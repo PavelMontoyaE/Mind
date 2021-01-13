@@ -1,9 +1,11 @@
 import assert from 'assert';
+import  testSummary from '../src/test-nyc.js';
 
-describe('Array', function () {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
+describe('testSummary', function () {
+  it('Should return summary', function () {
+    const a = 10;
+    const b = 15;
+    const summary = a + b;
+    assert.deepStrictEqual(testSummary(a, b), summary);
   });
 });
