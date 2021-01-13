@@ -1,8 +1,16 @@
 {
   "all": true,
-  "include": [
-    "src/controller/**.js"
+  "reporter": [
+    "lcov"
+  ],
+  "extension": [
+    ".js"
   ],
   "exclude": [
+    "**/src/config/",
+    "**/src/libs/",
+    "**/src/models/",
+    "**/src/seeders/",
+    "**/coverage/"
   ]
 }

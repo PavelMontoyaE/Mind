@@ -1,13 +1,10 @@
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
-import sinon from 'sinon';
-import server, { sequelize } from '../server.js';
-import seeding from '../src/seeders/index.js';
-import * as courseController from '../src/controller/course.controller.js';
+import server from '../server.js';
+import { findAll } from '../src/controller/course.controller.js';
 
 chai.should();
 chai.use(chaiHTTP);
-const expect = chai.expect;
 
 describe('Courses', function () {
   after(function (done) {
@@ -78,7 +75,7 @@ describe('Courses', function () {
           data.should.be.a('array');
         }
       };
-      courseController.findAll(req, res);
+      findAll(req, res);
     });
   });
 });
