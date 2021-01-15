@@ -1,10 +1,14 @@
 {
   "all": true,
   "reporter": [
+    "text",
     "lcov"
   ],
   "extension": [
     ".js"
+  ],
+  "include": [
+    "**/test/"
   ],
   "exclude": [
     "**/src/config/",
@@ -12,5 +16,8 @@
     "**/src/models/",
     "**/src/seeders/",
     "**/coverage/"
+  ],
+  "requires": [
+    "@babel/register"
   ]
 }

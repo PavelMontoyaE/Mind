@@ -1,5 +1,5 @@
 import assert from 'assert';
-import  testSummary from '../src/test-nyc.js';
+import testSummary from '../src/test-nyc.js';
 
 describe('testSummary', function () {
   it('Should return summary', function () {

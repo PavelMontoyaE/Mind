@@ -47,7 +47,5 @@ describe('mutations', () => {
     expect(state.course).not.toEqual(expect.objectContaining(courseTest));
     expect(state.loading).toBeFalsy();
     expect(state.courseDrawer).toBeFalsy();
-    expect(state.successMessage).toBeFalsy();
-    expect(state.errorMessage).toBeFalsy();
   });
 });

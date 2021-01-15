@@ -68,11 +68,12 @@ describe('Courses', function () {
   });
 
   describe('Course controller', function () {
-    it('it should return an array', function () {
+    it('it should return an array', function (done) {
       let req = { query: {} };
       let res = {
         send: (data) => {
           data.should.be.a('array');
+          done();
         }
       };
       findAll(req, res);

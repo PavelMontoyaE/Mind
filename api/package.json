@@ -8,6 +8,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=testing LOG_LEVEL=silent mocha",
+    "test:jest": "NODE_ENV=testing LOG_LEVEL=silent node --experimental-vm-modules node_modules/.bin/jest test/unit/**.js",
+    "test:jest:coverage": "NODE_ENV=testing LOG_LEVEL=silent node --experimental-vm-modules node_modules/.bin/jest test/unit/**.js --coverage --no-cache  --detectOpenHandles --runInBand --forceExit",
     "coverage": "NODE_ENV=testing LOG_LEVEL=silent nyc mocha test/**.js",
     "coverage:2": "NODE_ENV=testing LOG_LEVEL=silent nyc mocha test/test.js"
   },
@@ -33,6 +35,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "iconv-lite": "^0.6.2",
+    "jest": "^26.6.3",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^9.2.2"
